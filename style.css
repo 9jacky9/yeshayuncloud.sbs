@@ -1,0 +1,1188 @@
+/* ==========================================================================
+   夜煞云 (yeshayuncloud.sbs) - 视觉样式表 (全异构重构版)
+   设计风格：血晶破阵·硬核多棱要塞流 (Blood-Crystal Fortress & Tactical Armor)
+   视觉调性：重装碳素黑 + 凝血红晶棱光 + 钛金暗红刻度 + 八角几何切削
+   排版结构：三柱式要塞驾驶舱Hero + 交错重装双联碉堡 + 战力配给数据表 + 战报档案卡
+   ========================================================================== */
+
+:root {
+  --bunker-black: #050608;
+  --bunker-hull: #0b0d13;
+  --bunker-surface: #10141e;
+  --bunker-facet: #161c2b;
+  --bunker-facet-hover: #1d2538;
+  --crystal-blood: #ef4444;
+  --crystal-ruby: #b91c1c;
+  --crystal-dark: #7f1d1d;
+  --crystal-laser: #f87171;
+  --tactical-amber: #f59e0b;
+  --hud-glow: rgba(239, 68, 68, 0.28);
+  --armor-steel: #f1f5f9;
+  --armor-muted: #8492a6;
+  --border-crystal: rgba(239, 68, 68, 0.38);
+  --border-hull: rgba(255, 255, 255, 0.08);
+  --font-tactical: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  font-size: 16px;
+  background-color: var(--bunker-black);
+}
+
+body {
+  font-family: var(--font-tactical);
+  background-color: var(--bunker-black);
+  color: var(--armor-steel);
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 全站超链接强调色规范 (要塞血晶珊瑚红，访问前后一致，严禁默认蓝紫色) */
+a, a:visited {
+  color: #fca5a5;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: #ffffff;
+}
+
+/* 按钮与特定组件超链接隔离：严禁继承全局下划线与 visited 变色 */
+.c-btn,
+a.c-btn,
+a.c-btn:link,
+a.c-btn:visited,
+a.c-btn:hover,
+a.c-btn:active,
+.tactical-nav-link,
+a.tactical-nav-link,
+a.tactical-nav-link:visited,
+.deck-logo-wrap,
+a.deck-logo-wrap,
+.bunker-foot-link,
+a.bunker-foot-link,
+a.bunker-foot-link:visited,
+.dispatch-read-link {
+  text-decoration: none !important;
+}
+
+/* 导航链接颜色稳固 */
+.tactical-nav-link,
+a.tactical-nav-link,
+a.tactical-nav-link:link,
+a.tactical-nav-link:visited {
+  color: var(--armor-muted) !important;
+}
+.tactical-nav-link:hover,
+a.tactical-nav-link:hover {
+  color: var(--crystal-blood) !important;
+}
+
+/* 顶部要塞扫描脉冲网格 */
+.tactical-mesh-ambient {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  max-width: 1400px;
+  height: 540px;
+  background: radial-gradient(ellipse at 50% -10%, rgba(239, 68, 68, 0.24) 0%, rgba(185, 28, 28, 0.08) 45%, rgba(5, 6, 8, 0) 75%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tactical-container {
+  width: 100%;
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* 重装指挥甲板导航 (Tactical Command Deck Header) */
+.tactical-deck-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5, 6, 8, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--border-crystal);
+  padding: 12px 0;
+}
+
+.deck-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.deck-logo-wrap {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.deck-logo-svg {
+  width: 175px;
+  height: 42px;
+  display: block;
+}
+
+/* 战术导航菜单 */
+.tactical-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  list-style: none;
+}
+
+.tactical-nav-link {
+  color: var(--armor-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  padding: 6px 0;
+  white-space: nowrap;
+}
+
+.tactical-nav-link:hover {
+  color: var(--crystal-laser);
+}
+
+.tactical-nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--crystal-blood);
+  transition: width 0.2s ease;
+}
+
+.tactical-nav-link:hover::after {
+  width: 100%;
+}
+
+.deck-nav-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* 按钮通用规范：八角切削装甲按钮 */
+.c-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.92rem;
+  padding: 10px 24px;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+}
+
+.c-btn-blood,
+.c-btn-red,
+a.c-btn-blood,
+a.c-btn-blood:link,
+a.c-btn-blood:visited,
+a.c-btn-blood:active,
+a.c-btn-blood:focus,
+a.c-btn-red,
+a.c-btn-red:link,
+a.c-btn-red:visited,
+a.c-btn-red:active,
+a.c-btn-red:focus {
+  background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 22px rgba(239, 68, 68, 0.5), 0 0 12px rgba(239, 68, 68, 0.35) !important;
+  border: 1px solid #fca5a5 !important;
+}
+
+.c-btn-blood:hover,
+.c-btn-red:hover,
+a.c-btn-blood:hover,
+a.c-btn-red:hover {
+  background: linear-gradient(135deg, #f87171, #dc2626) !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  box-shadow: 0 6px 28px rgba(239, 68, 68, 0.7), 0 0 18px rgba(252, 165, 165, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+.c-btn-steel,
+a.c-btn-steel,
+a.c-btn-steel:link,
+a.c-btn-steel:visited {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--border-hull) !important;
+  color: var(--armor-steel) !important;
+  text-decoration: none !important;
+}
+
+.c-btn-steel:hover,
+a.c-btn-steel:hover {
+  background: rgba(239, 68, 68, 0.18) !important;
+  border-color: var(--crystal-blood) !important;
+  color: #ffffff !important;
+}
+
+.c-btn-amber,
+a.c-btn-amber,
+a.c-btn-amber:link,
+a.c-btn-amber:visited {
+  background: rgba(245, 158, 11, 0.12) !important;
+  border: 1px solid rgba(245, 158, 11, 0.45) !important;
+  color: #fbbf24 !important;
+  text-decoration: none !important;
+}
+
+.c-btn-amber:hover,
+a.c-btn-amber:hover {
+  background: rgba(245, 158, 11, 0.25) !important;
+  border-color: #f59e0b !important;
+  color: #fef3c7 !important;
+  transform: translateY(-2px);
+}
+
+.c-btn-hero,
+.c-btn-xl {
+  padding: 14px 34px;
+  font-size: 1.05rem;
+}
+
+/* 首屏：三柱式要塞驾驶舱 (3-Column Tactical Command Cockpit) */
+.cockpit-hero-section {
+  padding: 70px 0 50px;
+  position: relative;
+}
+
+.cockpit-hero-grid {
+  display: grid;
+  grid-template-columns: 280px 1.4fr 320px;
+  gap: 28px;
+  align-items: stretch;
+}
+
+/* 左侧：垂直装甲参数桩 (Tactical Spec Column) */
+.cockpit-specs-col {
+  background: var(--bunker-surface);
+  border: 1px solid var(--border-hull);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
+}
+
+.col-header-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--crystal-blood);
+  letter-spacing: 1px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-hull);
+}
+
+.spec-meter-unit {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.spec-meter-name {
+  font-size: 0.8rem;
+  color: var(--armor-muted);
+}
+
+.spec-meter-num {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.spec-bar-fill {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.spec-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--crystal-ruby), var(--crystal-blood));
+}
+
+/* 中央：核心钛金标与主操作区 (Command Core Center) */
+.cockpit-center-hub {
+  background: linear-gradient(160deg, rgba(22, 28, 43, 0.9), rgba(11, 13, 19, 0.95));
+  border: 1.5px solid var(--border-crystal);
+  padding: 44px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px), 0 16px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 30px var(--hud-glow);
+}
+
+.hero-tactical-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid var(--border-crystal);
+  color: var(--crystal-laser);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.hero-cockpit-title {
+  font-size: 2.75rem;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  margin-bottom: 18px;
+}
+
+.hero-cockpit-title .laser-text {
+  background: linear-gradient(135deg, #ffffff 30%, #fca5a5 70%, #ef4444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-cockpit-sub {
+  font-size: 1.05rem;
+  color: var(--armor-muted);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 520px;
+}
+
+.cockpit-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* 右侧：实时网络遥测雷达看板 (Live Telemetry Radar) */
+.cockpit-telemetry-col {
+  background: var(--bunker-surface);
+  border: 1px solid var(--border-hull);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
+}
+
+.telemetry-node-row {
+  background: var(--bunker-facet);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px);
+}
+
+.node-geo {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.node-ping {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--crystal-blood);
+}
+
+/* 区域通用规范 */
+.tactical-section {
+  padding: 80px 0;
+  position: relative;
+}
+
+.tactical-head-box {
+  text-align: center;
+  max-width: 740px;
+  margin: 0 auto 52px;
+}
+
+.t-tag-pill {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--crystal-blood);
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+
+.t-head-h2 {
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+
+.t-head-desc {
+  font-size: 0.98rem;
+  color: var(--armor-muted);
+}
+
+/* 核心优势：交错式双联重装碉堡 (Alternating Split-Bunkers) */
+.bunker-staggered-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* 碉堡 Alpha: 60/40 Split */
+.bunker-alpha-module {
+  background: var(--bunker-surface);
+  border: 1px solid var(--border-hull);
+  padding: 38px 34px;
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 32px;
+  align-items: center;
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+  transition: all 0.25s ease;
+}
+
+.bunker-alpha-module:hover {
+  border-color: var(--border-crystal);
+  background: var(--bunker-facet);
+}
+
+/* 碉堡 Beta: 40/60 Split */
+.bunker-beta-module {
+  background: var(--bunker-surface);
+  border: 1px solid var(--border-hull);
+  padding: 38px 34px;
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 32px;
+  align-items: center;
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+  transition: all 0.25s ease;
+}
+
+.bunker-beta-module:hover {
+  border-color: var(--border-crystal);
+  background: var(--bunker-facet);
+}
+
+.bunker-text-block h3 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+
+.bunker-text-block p {
+  font-size: 0.95rem;
+  color: var(--armor-muted);
+  line-height: 1.75;
+}
+
+.bunker-visual-box {
+  background: var(--bunker-hull);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+}
+
+.visual-metric-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--armor-muted);
+  margin-bottom: 6px;
+}
+
+.visual-metric-val {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--crystal-blood);
+  margin-bottom: 6px;
+}
+
+.visual-metric-note {
+  font-size: 0.75rem;
+  color: #34d399;
+}
+
+/* 优势底部双联行 (Bottom Duo Row) */
+.bunker-duo-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.bunker-duo-cell {
+  background: var(--bunker-surface);
+  border: 1px solid var(--border-hull);
+  padding: 30px;
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
+}
+
+.bunker-duo-cell:hover {
+  border-color: var(--border-crystal);
+}
+
+/* 流媒体与 AI：多维协议与业务解锁矩阵图 (3-Column Armored Matrix) */
+.tactical-matrix-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.matrix-armor-card {
+  background: var(--bunker-hull);
+  border: 1px solid var(--border-hull);
+  padding: 32px 26px;
+  position: relative;
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
+  transition: all 0.25s ease;
+}
+
+.matrix-armor-card:hover {
+  border-color: var(--border-crystal);
+  background: var(--bunker-surface);
+}
+
+.matrix-code-chip {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--crystal-laser);
+  background: rgba(239, 68, 68, 0.12);
+  padding: 3px 10px;
+  margin-bottom: 16px;
+}
+
+/* 价格方案：战力配给技术数据表 (Combat Provision Data Sheet) */
+.provision-datasheet-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.datasheet-tier-card {
+  background: var(--bunker-surface);
+  border: 1px solid var(--border-hull);
+  padding: 36px 26px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+  transition: all 0.25s ease;
+}
+
+.datasheet-tier-card.vanguard-spec {
+  border-color: var(--crystal-blood);
+  background: linear-gradient(160deg, #181f2f, #11080d);
+  box-shadow: 0 12px 36px rgba(239, 68, 68, 0.25);
+  transform: scale(1.02);
+}
+
+.vanguard-tag {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--crystal-blood);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 3px 16px;
+  letter-spacing: 0.5px;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.tier-designation {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.tier-profile {
+  font-size: 0.82rem;
+  color: var(--armor-muted);
+  margin-bottom: 22px;
+}
+
+.tier-figure-deck {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 26px;
+}
+
+.deck-currency {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--crystal-blood);
+}
+
+.deck-price {
+  font-size: 2.85rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.deck-freq {
+  font-size: 0.85rem;
+  color: var(--armor-muted);
+}
+
+.provision-spec-table {
+  list-style: none;
+  margin-bottom: 30px;
+  flex-grow: 1;
+}
+
+.provision-spec-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  padding: 8px 0;
+  color: var(--armor-steel);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.spec-bullet-svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* 战报档案：先锋实测日志卡 (Vanguard Field Report Dossiers) */
+.field-dossier-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.dossier-card {
+  background: var(--bunker-surface);
+  border: 1px solid var(--border-hull);
+  padding: 28px 24px;
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dossier-top-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dossier-log-id {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--crystal-blood);
+}
+
+.dossier-verified-badge {
+  font-size: 0.72rem;
+  color: #34d399;
+}
+
+.dossier-body-text {
+  font-size: 0.92rem;
+  color: var(--armor-steel);
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.dossier-author-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dossier-avatar-hex {
+  width: 38px;
+  height: 38px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid var(--border-crystal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: var(--crystal-laser);
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.dossier-name {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.dossier-duty {
+  font-size: 0.75rem;
+  color: var(--armor-muted);
+}
+
+/* FAQ：战术指令排障手册 (Tactical Intel Manual) */
+.intel-manual-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.intel-manual-cell {
+  background: var(--bunker-surface);
+  border: 1px solid var(--border-hull);
+  padding: 24px 28px;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+}
+
+.intel-q {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.intel-a {
+  font-size: 0.92rem;
+  color: var(--armor-muted);
+  line-height: 1.7;
+}
+
+/* 底部页脚：仅展示指定的4个中文标题 */
+.tactical-bunker-footer {
+  background: #030406;
+  border-top: 2px solid var(--border-crystal);
+  padding: 44px 0 32px;
+  text-align: center;
+}
+
+.bunker-foot-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 34px;
+  list-style: none;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.bunker-foot-link {
+  color: var(--armor-steel);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  padding: 6px 10px;
+}
+
+.bunker-foot-link:hover {
+  color: var(--crystal-blood);
+}
+
+.bunker-foot-copy {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* 子页面框架 */
+.fortress-sub-header {
+  padding: 65px 0 40px;
+  border-bottom: 1px solid var(--border-hull);
+  margin-bottom: 40px;
+}
+
+.fortress-sub-h1 {
+  font-size: 2.3rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.fortress-sub-content {
+  background: var(--bunker-surface);
+  border: 1px solid var(--border-hull);
+  padding: 40px;
+  margin-bottom: 60px;
+  line-height: 1.8;
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+}
+
+.fortress-sub-content h2 {
+  font-size: 1.45rem;
+  color: #ffffff;
+  margin: 32px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-hull);
+}
+
+.fortress-sub-content h2:first-of-type {
+  margin-top: 0;
+}
+
+.fortress-sub-content p {
+  color: var(--armor-steel);
+  margin-bottom: 16px;
+  font-size: 0.96rem;
+}
+
+.fortress-sub-content ul {
+  padding-left: 20px;
+  margin-bottom: 20px;
+  color: var(--armor-steel);
+}
+
+.fortress-sub-content li {
+  margin-bottom: 8px;
+}
+
+/* 响应式媒体查询 */
+@media (max-width: 1080px) {
+  .deck-nav-inner {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .tactical-nav-menu {
+    order: 3;
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    padding: 6px 2px 8px !important;
+    gap: 10px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tactical-nav-menu::-webkit-scrollbar {
+    display: none;
+  }
+  .tactical-nav-menu li {
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+  }
+  .tactical-nav-link {
+    font-size: 0.86rem;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: 4px;
+    flex-shrink: 0;
+    white-space: nowrap !important;
+  }
+  .cockpit-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .bunker-alpha-module,
+  .bunker-beta-module {
+    grid-template-columns: 1fr;
+  }
+  .bunker-duo-row {
+    grid-template-columns: 1fr;
+  }
+  .tactical-matrix-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  .provision-datasheet-wrap {
+    grid-template-columns: 1fr;
+  }
+  .datasheet-tier-card.vanguard-spec {
+    transform: none;
+  }
+  .field-dossier-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-cockpit-title {
+    font-size: 2.15rem;
+  }
+  .cockpit-btn-row {
+    flex-direction: column;
+    width: 100%;
+  }
+  .cockpit-btn-row .c-btn {
+    width: 100%;
+    min-height: 48px;
+  }
+  .bunker-foot-links {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .fortress-sub-content {
+    padding: 24px 18px;
+  }
+}
+
+/* ==========================================================================
+   要塞通讯 (dispatch.html) 硬核战术档案与独立文章驾驶舱排版
+   ========================================================================== */
+.dispatch-dossier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
+  margin: 45px 0 75px;
+}
+
+.dispatch-unit-card {
+  background: var(--bunker-surface);
+  border: 1px solid var(--border-hull);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
+  position: relative;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dispatch-unit-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--crystal-blood);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.6), 0 0 18px rgba(239, 68, 68, 0.25);
+}
+
+.dispatch-chip-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.dispatch-code-chip {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.dispatch-date-tag {
+  color: var(--armor-muted);
+  font-size: 0.8rem;
+  font-family: monospace;
+}
+
+.dispatch-card-h3 {
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1.45;
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+
+.dispatch-card-h3 a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.dispatch-card-h3 a:hover {
+  color: var(--crystal-blood);
+}
+
+.dispatch-summary-p {
+  color: var(--armor-steel);
+  font-size: 0.92rem;
+  line-height: 1.68;
+  margin-bottom: 22px;
+  flex-grow: 1;
+}
+
+.dispatch-read-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #fca5a5;
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.dispatch-read-link:hover {
+  color: #ffffff;
+  gap: 12px;
+}
+
+/* 要塞单篇战报排版 */
+.dispatch-article-cockpit {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+.dispatch-head-panel {
+  padding-bottom: 28px;
+  margin-bottom: 36px;
+  border-bottom: 2px solid var(--border-hull);
+}
+
+.dispatch-main-h1 {
+  font-size: 2.25rem;
+  font-weight: 900;
+  line-height: 1.35;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.dispatch-specs-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  color: var(--armor-muted);
+  font-size: 0.86rem;
+}
+
+.dispatch-vanguard-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.dispatch-avatar-hex {
+  width: 26px;
+  height: 26px;
+  background: var(--crystal-blood);
+  color: #ffffff;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.dispatch-body-hull {
+  background: var(--bunker-surface);
+  border: 1px solid var(--border-hull);
+  padding: 45px;
+  line-height: 1.85;
+  font-size: 1.02rem;
+  color: var(--armor-steel);
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+}
+
+.dispatch-body-hull h2 {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 38px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-hull);
+}
+
+.dispatch-body-hull h2:first-of-type {
+  margin-top: 0;
+}
+
+.dispatch-body-hull h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fca5a5;
+  margin: 28px 0 12px;
+}
+
+.dispatch-body-hull p {
+  margin-bottom: 20px;
+  color: #cbd5e1;
+}
+
+.dispatch-body-hull ul,
+.dispatch-body-hull ol {
+  padding-left: 24px;
+  margin-bottom: 24px;
+  color: var(--armor-steel);
+}
+
+.dispatch-body-hull li {
+  margin-bottom: 10px;
+}
+
+.dispatch-tactical-callout {
+  background: rgba(239, 68, 68, 0.08);
+  border-left: 4px solid var(--crystal-blood);
+  padding: 20px 24px;
+  margin: 30px 0;
+  color: #f1f5f9;
+}
+
+.dispatch-tactical-callout p {
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  color: #f8fafc;
+}
+
+.dispatch-exit-control {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border-hull);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}

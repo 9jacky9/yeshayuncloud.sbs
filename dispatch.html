@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>要塞通讯 · 硬核网络战备指南与技术档案 - 夜煞云</title>
+  <meta name="description" content="夜煞云要塞通讯专栏，聚焦万兆BGP中继压力测试、主流网络代理底层协议深度横评、软路由GeoIP分流排障及零信任纯内存防护档案。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="tactical-mesh-ambient"></div>
+
+  <!-- 重装指挥甲板导航 (Tactical Command Deck Header) -->
+  <header class="tactical-deck-nav">
+    <div class="tactical-container">
+      <div class="deck-nav-inner">
+        <a href="index.html" class="deck-logo-wrap" title="夜煞云官网">
+          <svg class="deck-logo-svg" viewBox="0 0 240 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="夜煞云 Logo">
+            <defs>
+              <linearGradient id="crystalGemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fca5a5"/>
+                <stop offset="50%" stop-color="#ef4444"/>
+                <stop offset="100%" stop-color="#991b1b"/>
+              </linearGradient>
+            </defs>
+            <polygon points="26,8 38,8 46,16 46,38 38,46 26,46 18,38 18,16" fill="url(#crystalGemGrad)"/>
+            <polygon points="28,14 36,14 40,20 40,34 36,40 28,40 24,34 24,20" fill="#050608" opacity="0.65"/>
+            <line x1="26" y1="8" x2="36" y2="40" stroke="#ffffff" stroke-width="1.2" opacity="0.4"/>
+            <line x1="18" y1="26" x2="46" y2="26" stroke="#ffffff" stroke-width="1.2" opacity="0.4"/>
+            <text x="58" y="38" font-family="'Inter', 'PingFang SC', sans-serif" font-size="26" font-weight="900" fill="#ffffff" letter-spacing="2">夜煞云</text>
+            <rect x="156" y="20" width="66" height="18" rx="2" fill="rgba(239, 68, 68, 0.2)" stroke="#ef4444" stroke-width="1"/>
+            <text x="163" y="33" font-family="'Inter', sans-serif" font-size="10" font-weight="800" fill="#fca5a5" letter-spacing="1">FORTRESS</text>
+          </svg>
+        </a>
+        <ul class="tactical-nav-menu">
+          <li><a href="index.html#advantages" class="tactical-nav-link">重装优势</a></li>
+          <li><a href="index.html#stream-ai" class="tactical-nav-link">协议矩阵</a></li>
+          <li><a href="index.html#pricing" class="tactical-nav-link">战力配给</a></li>
+          <li><a href="index.html#testimonials" class="tactical-nav-link">前线战报</a></li>
+          <li><a href="index.html#faq" class="tactical-nav-link">装甲指南</a></li>
+          <li><a href="dispatch.html" class="tactical-nav-link" style="color:#fca5a5; font-weight:900;">要塞通讯</a></li>
+        </ul>
+        <div class="deck-nav-actions">
+          <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" target="_blank" rel="nofollow" class="c-btn c-btn-blood">立即配给</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="tactical-container">
+    <header class="fortress-sub-header" style="text-align: center; border-bottom: none; padding-bottom: 20px;">
+      <span class="t-tag-pill" style="margin-bottom: 12px; display:inline-block;">FORTRESS TACTICAL DISPATCH</span>
+      <h1 class="fortress-sub-h1" style="font-size: 2.7rem; margin-bottom: 16px;">要塞通讯 · 硬核网络战备指南与技术档案</h1>
+      <p class="f-desc" style="max-width: 780px; margin: 0 auto; font-size: 1.05rem;">
+        记录来自极限网络对抗第一线的硬核实测数据、跨洋加密协议底层代码拆解与全时段压力测试档案。
+      </p>
+    </header>
+
+    <!-- 6 篇要塞档案卡片列表 -->
+    <div class="dispatch-dossier-grid">
+      <!-- 1: 品牌与架构档案 -->
+      <article class="dispatch-unit-card">
+        <div>
+          <div class="dispatch-chip-row">
+            <span class="dispatch-code-chip">[DOSSIER #01] · 架构总览</span>
+            <span class="dispatch-date-tag">2026-10-12</span>
+          </div>
+          <h2 class="dispatch-card-h3">
+            <a href="fortress-core-architecture.html">硬核破阵基建：夜煞云万兆BGP要塞节点吞吐与全时段压力测试实录</a>
+          </h2>
+          <p class="dispatch-summary-p">
+            万兆端口饱和吞吐量实测、并发连接数极限压测与端到端纯内存转发管道稳定性深度技术拆解。
+          </p>
+        </div>
+        <div>
+          <a href="fortress-core-architecture.html" class="dispatch-read-link">查看完整战备档案 →</a>
+        </div>
+      </article>
+
+      <!-- 2: 协议对比 -->
+      <article class="dispatch-unit-card">
+        <div>
+          <div class="dispatch-chip-row">
+            <span class="dispatch-code-chip">[DOSSIER #02] · 协议解构</span>
+            <span class="dispatch-date-tag">2026-10-09</span>
+          </div>
+          <h2 class="dispatch-card-h3">
+            <a href="tactical-protocol-comparison.html">主流跨国代理协议深度横评：VLESS、Shadowsocks与Trojan底层性能与特征剖析</a>
+          </h2>
+          <p class="dispatch-summary-p">
+            使用 Wireshark 抓包深度对比三大协议在 TLS 握手特征、计算开销与数据包头部膨胀率方面的差异。
+          </p>
+        </div>
+        <div>
+          <a href="tactical-protocol-comparison.html" class="dispatch-read-link">查看完整技术横评 →</a>
+        </div>
+      </article>
+
+      <!-- 3: 路由分流优化 -->
+      <article class="dispatch-unit-card">
+        <div>
+          <div class="dispatch-chip-row">
+            <span class="dispatch-code-chip">[DOSSIER #03] · 路由分流</span>
+            <span class="dispatch-date-tag">2026-10-07</span>
+          </div>
+          <h2 class="dispatch-card-h3">
+            <a href="routing-rules-optimization.html">软路由与客户端智能分流规则精粹：自建GeoIP与分流规则链实战排障</a>
+          </h2>
+          <p class="dispatch-summary-p">
+            告别规则冲突与 DNS 环路解析，详述基于开源客户端内核构建精准分流白名单的高级实战经验。
+          </p>
+        </div>
+        <div>
+          <a href="routing-rules-optimization.html" class="dispatch-read-link">查看完整配置指南 →</a>
+        </div>
+      </article>
+
+      <!-- 4: 晚高峰延迟压测 -->
+      <article class="dispatch-unit-card">
+        <div>
+          <div class="dispatch-chip-row">
+            <span class="dispatch-code-chip">[DOSSIER #04] · 抗QoS限速</span>
+            <span class="dispatch-date-tag">2026-10-04</span>
+          </div>
+          <h2 class="dispatch-card-h3">
+            <a href="synthetic-latency-benchmark.html">国际网络出口QoS限速机制破解：如何利用BGP多线中继抵御晚高峰劣化</a>
+          </h2>
+          <p class="dispatch-summary-p">
+            深挖运营商汇聚层流量调度原理，实测自研抗拥塞多通道在晚高峰期保障数据流平稳到达的工程机制。
+          </p>
+        </div>
+        <div>
+          <a href="synthetic-latency-benchmark.html" class="dispatch-read-link">查看完整压测报告 →</a>
+        </div>
+      </article>
+
+      <!-- 5: 大模型推理网关 -->
+      <article class="dispatch-unit-card">
+        <div>
+          <div class="dispatch-chip-row">
+            <span class="dispatch-code-chip">[DOSSIER #05] · AI算力通道</span>
+            <span class="dispatch-date-tag">2026-10-01</span>
+          </div>
+          <h2 class="dispatch-card-h3">
+            <a href="ai-model-inference-gateway.html">Claude 3.5与ChatGPT高负载API调用防限流：反向代理与中继集群负载均衡</a>
+          </h2>
+          <p class="dispatch-summary-p">
+            面向企业级生产环境，构建支持健康检查、轮询调度与高并发长连接维护的跨国 AI 代理网关。
+          </p>
+        </div>
+        <div>
+          <a href="ai-model-inference-gateway.html" class="dispatch-read-link">查看完整部署手册 →</a>
+        </div>
+      </article>
+
+      <!-- 6: 零信任防护 -->
+      <article class="dispatch-unit-card">
+        <div>
+          <div class="dispatch-chip-row">
+            <span class="dispatch-code-chip">[DOSSIER #06] · 硬件级零信任</span>
+            <span class="dispatch-date-tag">2026-09-27</span>
+          </div>
+          <h2 class="dispatch-card-h3">
+            <a href="zero-trust-packet-defense.html">零信任架构下的跨境中继安全：为什么硬件RAM无盘部署是防溯源的终极防线</a>
+          </h2>
+          <p class="dispatch-summary-p">
+            对标 NIST 零信任框架，解析无持久化存储主板与微秒级内存擦除如何将系统暴露面压制至极限。
+          </p>
+        </div>
+        <div>
+          <a href="zero-trust-packet-defense.html" class="dispatch-read-link">查看完整安全白皮书 →</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- 底部页脚：仅展示指定的4个中文标题 -->
+  <footer class="tactical-bunker-footer">
+    <div class="tactical-container">
+      <ul class="bunker-foot-links">
+        <li><a href="sitemap.html" class="bunker-foot-link">网站地图</a></li>
+        <li><a href="about.html" class="bunker-foot-link">关于我们</a></li>
+        <li><a href="terms.html" class="bunker-foot-link">服务条款</a></li>
+        <li><a href="privacy.html" class="bunker-foot-link">隐私政策</a></li>
+      </ul>
+      <p class="bunker-foot-copy">© 2026 夜煞云 (Yeshayun Cloud). 保留所有权利。</p>
+    </div>
+  </footer>
+</body>
+</html>

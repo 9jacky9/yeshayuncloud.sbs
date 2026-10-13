@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>主流跨国代理协议深度横评：VLESS、Shadowsocks与Trojan底层性能与特征剖析 - 要塞通讯</title>
+  <meta name="description" content="使用专业网络抓包工具深入对比VLESS、Shadowsocks与Trojan协议的握手特征、计算开销、头部膨胀率与主动探测防御机制。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="tactical-mesh-ambient"></div>
+
+  <!-- 重装指挥甲板导航 -->
+  <header class="tactical-deck-nav">
+    <div class="tactical-container">
+      <div class="deck-nav-inner">
+        <a href="index.html" class="deck-logo-wrap" title="夜煞云官网">
+          <svg class="deck-logo-svg" viewBox="0 0 240 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="夜煞云 Logo">
+            <defs>
+              <linearGradient id="crystalGemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fca5a5"/>
+                <stop offset="50%" stop-color="#ef4444"/>
+                <stop offset="100%" stop-color="#991b1b"/>
+              </linearGradient>
+            </defs>
+            <polygon points="26,8 38,8 46,16 46,38 38,46 26,46 18,38 18,16" fill="url(#crystalGemGrad)"/>
+            <polygon points="28,14 36,14 40,20 40,34 36,40 28,40 24,34 24,20" fill="#050608" opacity="0.65"/>
+            <line x1="26" y1="8" x2="36" y2="40" stroke="#ffffff" stroke-width="1.2" opacity="0.4"/>
+            <line x1="18" y1="26" x2="46" y2="26" stroke="#ffffff" stroke-width="1.2" opacity="0.4"/>
+            <text x="58" y="38" font-family="'Inter', 'PingFang SC', sans-serif" font-size="26" font-weight="900" fill="#ffffff" letter-spacing="2">夜煞云</text>
+            <rect x="156" y="20" width="66" height="18" rx="2" fill="rgba(239, 68, 68, 0.2)" stroke="#ef4444" stroke-width="1"/>
+            <text x="163" y="33" font-family="'Inter', sans-serif" font-size="10" font-weight="800" fill="#fca5a5" letter-spacing="1">FORTRESS</text>
+          </svg>
+        </a>
+        <ul class="tactical-nav-menu">
+          <li><a href="index.html#advantages" class="tactical-nav-link">重装优势</a></li>
+          <li><a href="index.html#stream-ai" class="tactical-nav-link">协议矩阵</a></li>
+          <li><a href="index.html#pricing" class="tactical-nav-link">战力配给</a></li>
+          <li><a href="index.html#testimonials" class="tactical-nav-link">前线战报</a></li>
+          <li><a href="index.html#faq" class="tactical-nav-link">装甲指南</a></li>
+          <li><a href="dispatch.html" class="tactical-nav-link" style="color:#fca5a5; font-weight:900;">要塞通讯</a></li>
+        </ul>
+        <div class="deck-nav-actions">
+          <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" target="_blank" rel="nofollow" class="c-btn c-btn-blood">立即配给</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="tactical-container dispatch-article-cockpit">
+    <header class="dispatch-head-panel">
+      <div class="dispatch-chip-row">
+        <span class="dispatch-code-chip">[DOSSIER #02] · 协议解构</span>
+        <span class="dispatch-date-tag">2026-10-09</span>
+      </div>
+      <h1 class="dispatch-main-h1">主流跨国代理协议深度横评：VLESS、Shadowsocks与Trojan底层性能与特征剖析</h1>
+      <div class="dispatch-specs-meta">
+        <span class="dispatch-vanguard-tag">
+          <span class="dispatch-avatar-hex">严</span>
+          <span>要塞安全研究员 · 协议工程拆解组</span>
+        </span>
+        <span>分析工具：Wireshark 4.x / eBPF 内核探测器</span>
+        <span>对比维度：握手耗时、头部开销、伪装强度</span>
+      </div>
+    </header>
+
+    <article class="dispatch-body-hull">
+      <p>
+        在跨境数据加速领域，传输协议往往被视作保护通信机密性与穿透拥塞的核心武器。然而，很多用户在挑选连接方案时常常陷入“唯协议论”的迷思。实际上，没有任何一种协议能够在所有场景下占尽优势。本文基于 <a href="https://www.wireshark.org/" target="_blank" rel="noopener">Wireshark 网络抓包分析平台</a> 捕获的底层数据帧，从协议头部开销、TLS 握手往返延迟以及抗主动探测能力三个维度，对 VLESS、Shadowsocks 与 Trojan 进行系统横向评测。
+      </p>
+
+      <h2>一、Shadowsocks：极简对阵与计算能效的权衡</h2>
+      <p>
+        作为历史悠久的对称加密协议，Shadowsocks 的核心设计哲学是极其轻量与无握手往返时延（0-RTT 启动）。
+      </p>
+
+      <h3>1. 无状态对称加密的高吞吐收益</h3>
+      <p>
+        Shadowsocks-AEAD（如使用 AEAD_CHACHA20_POLY1305 或 AES-256-GCM）不需要繁琐的证书协商过程。客户端发起第一个数据包时即可携带目标地址与载荷，在路由器等低功耗嵌入式设备上的 CPU 占用率极低，非常适合纯内网加速或低延迟联机场景。
+      </p>
+
+      <h3>2. 静态随机特征在深度检测下的隐患</h3>
+      <p>
+        纯随机熵值在早年具有良好的混淆效果，但在现代启发式机器学习流量分类引擎面前，“完全没有任何明文特征的完全随机流”本身就成了一种显眼的指纹。在高烈度网络环境下，容易受到针对性的重放攻击与丢包压制。
+      </p>
+
+      <h2>二、Trojan：大隐于市的标准 TLS 拟态</h2>
+      <p>
+        Trojan 协议摒弃了自造加密轮子的思路，直接将代理流量伪装在广为人知的 HTTPS（TLS 1.3）协议通道内部。
+      </p>
+
+      <h3>1. 完美复刻标准 Web 浏览器流量</h3>
+      <p>
+        通过在服务端挂载合法的域名证书与 Nginx 反向代理站点，未通过认证的探测流量会被直接路由至常规静态网页。从骨干网审查视角来看，其 ClientHello 与握手过程与普通的网页访问完全一致，具备极强的抗识别能力。
+      </p>
+
+      <h3>2. 证书协商与 TLS 封装的开销成本</h3>
+      <p>
+        Trojan 的代价在于初始握手必须完成完整的 1-RTT 或 2-RTT TLS 交换，首包响应时间稍长。同时，由于数据被包覆在标准 TLS 帧内，每一层封装都会增加 5% 至 8% 的协议头数据冗余。
+      </p>
+
+      <div class="dispatch-tactical-callout">
+        <p>
+          战备知识拓展：若想系统了解不同地区运营商对各类协议的阻断策略与真实节点速度排名，推荐深入研读 <a href="https://tizilab.net/" target="_blank">网络翻墙梯子深度评测</a> 的最新实测汇总，能够帮助你避开劣质节点的陷阱。
+        </p>
+      </div>
+
+      <h2>三、VLESS（XTLS/Reality）：去冗余与零拷贝的终极进化</h2>
+      <p>
+        VLESS 是一种无状态轻量级协议，它不依赖服务端的内置加密，而是将加密任务完全交给外层的传输通道（如 TLS 或 Vision/Reality）。
+      </p>
+
+      <h3>1. 零拷贝直通（Splice 技术）带来的性能飞跃</h3>
+      <p>
+        在支持 XTLS 的 Linux 内核中，VLESS 能够利用 splice 系统调用实现网络数据在内核缓冲区之间的直接流转，省去了将数据包在用户态和内核态之间反复复制的计算开销。在千兆满载压测下，CPU 占用率相比传统方案降低近 40%。
+      </p>
+
+      <h3>2. Reality 机制摆脱自主域名的束缚</h3>
+      <p>
+        Reality 进一步允许节点直接借用知名大型 CDN 或跨国企业的真实证书和 SNI 握手特征，免去了用户自行购买域名和维护证书生命周期的安全短板，极大压缩了服务被定点封锁的暴露面。
+      </p>
+
+      <h2>四、战备选型矩阵：因地制宜的最佳实践</h2>
+      <p>
+        综合测试数据显示：如果追求超高并发与极低设备功耗，且身处优质企业专线环境下，经过混淆的轻量协议依然高效；若面临复杂的公网跨界通信，结合 XTLS Vision 或 Reality 的 VLESS 方案凭借其抗主动探测能力与零拷贝性能，是当前战备级的理想之选。
+      </p>
+    </article>
+
+    <div class="dispatch-exit-control">
+      <a href="dispatch.html" class="dispatch-read-link">← 返回要塞通讯目录</a>
+      <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" target="_blank" rel="nofollow" class="c-btn c-btn-blood">立刻武装网络</a>
+    </div>
+  </main>
+
+  <!-- 底部页脚：仅展示指定的4个中文标题 -->
+  <footer class="tactical-bunker-footer">
+    <div class="tactical-container">
+      <ul class="bunker-foot-links">
+        <li><a href="sitemap.html" class="bunker-foot-link">网站地图</a></li>
+        <li><a href="about.html" class="bunker-foot-link">关于我们</a></li>
+        <li><a href="terms.html" class="bunker-foot-link">服务条款</a></li>
+        <li><a href="privacy.html" class="bunker-foot-link">隐私政策</a></li>
+      </ul>
+      <p class="bunker-foot-copy">© 2026 夜煞云 (Yeshayun Cloud). 保留所有权利。</p>
+    </div>
+  </footer>
+</body>
+</html>
