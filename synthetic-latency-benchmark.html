@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>国际网络出口QoS限速机制破解：如何利用BGP多线中继抵御晚高峰劣化 - 要塞通讯</title>
-  <meta name="description" content="深入解析晚高峰跨国网络拥堵背后的运营商QoS流量整形策略，实测BGP多线冗余中继与自研多路径探测如何击穿网络劣化壁垒。">
+  <title>怎样科学测延迟：ping、mtr 与游戏内显示的区别 - 要塞通讯</title>
+  <meta name="description" content="ping 显示延迟很低，游戏里却卡？不同测量方式反映的内容并不相同。介绍 ping、mtr 与游戏内延迟显示的差别和正确的使用方式。">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -50,80 +50,27 @@
   <main class="tactical-container dispatch-article-cockpit">
     <header class="dispatch-head-panel">
       <div class="dispatch-chip-row">
-        <span class="dispatch-code-chip">[DOSSIER #04] · 抗QoS限速</span>
-        <span class="dispatch-date-tag">2026-10-04</span>
+        <span class="dispatch-code-chip">[DOSSIER #04] · 延迟测量</span>
+        <span class="dispatch-date-tag">2026-11-12</span>
       </div>
-      <h1 class="dispatch-main-h1">国际网络出口QoS限速机制破解：如何利用BGP多线中继抵御晚高峰劣化</h1>
+      <h1 class="dispatch-main-h1">怎样科学测延迟：ping、mtr 与游戏内显示的区别</h1>
       <div class="dispatch-specs-meta">
-        <span class="dispatch-vanguard-tag">
-          <span class="dispatch-avatar-hex">秦</span>
-          <span>要塞流量调度专家 · 出口链路攻坚室</span>
-        </span>
-        <span>监测节点：全网24点持续探针</span>
-        <span>核心指标：高峰丢包抑制率、RTT抖动方差</span>
+        <span class="dispatch-vanguard-tag"><span class="dispatch-avatar-hex">夜</span><span>夜煞云使用指南组</span></span>
+        <span>主题：延迟测量</span>
       </div>
     </header>
 
     <article class="dispatch-body-hull">
-      <p>
-        每当指针走向夜间八点，几乎所有经常使用国际互联网的用户都能明显体会到网速的陡然下降：高清视频频频转圈、云端远程桌面卡成幻灯片、甚至连常规网页的文字排版都需要等待数秒。许多人将这归咎于物理海缆的总带宽不足，但从电信工程底层来看，更本质的症结在于骨干网汇聚层路由器上残酷的 QoS（Quality of Service，服务质量）限速与漏桶整形算法。
-      </p>
-
-      <h2>一、解密 QoS 限速刀刃：丢包与排队延迟的幕后黑手</h2>
-      <p>
-        电信运营商在国际出口网关上部署了极其严格的流量分类器（Traffic Classifier）。
-      </p>
-
-      <h3>1. 突发流量惩罚与尾部丢弃（Tail Drop）</h3>
-      <p>
-        当跨境端口的队列深度达到安全预警阈值时，路由器固件会优先对非企业保障级（Best Effort）的 UDP/TCP 流量实施惩罚性丢包。普通直连 VPS 节点往往首先沦为被丢弃的牺牲品，导致 TCP 拥塞窗口被硬生生压缩到初始状态。
-      </p>
-
-      <h3>2. 动态频宽整形（Token Bucket Shaping）</h3>
-      <p>
-        即使你的物理宽带高达 1000Mbps，在跨越国际出口交换机时，单个连接只要持续高速传输超过 15 秒，就会被令牌桶机制限制在固定极低的传输速率，产生断崖式的降速感。
-      </p>
-
-      <h2>二、要塞级解法：BGP 多线中继与内网直连穿透</h2>
-      <p>
-        抵御 QoS 劣化的最有效方案，绝不是在终端盲目增加多线程重发，而是从网络拓扑上彻底绕开公网拥挤的瓶颈节点。
-      </p>
-
-      <h3>1. 物理专线与内网互联（IPLC/IEPL）</h3>
-      <p>
-        通过租用运营商最高优先级的点对点内网传输信道，数据包在境内入网后直接通过局域网封装穿越边境，在境外合规机房完成解包并接入国际互联网。此类流量在运营商网络中享有最高等级的保证转发待遇，完全免受公网 QoS 策略的干扰。
-      </p>
-
-      <h3>2. 多路 BGP 动态 Anycast 负载分发</h3>
-      <p>
-        借助部署于华南、华东与华北的多线 BGP 入口，系统能根据 <a href="https://www.ripe.net/" target="_blank" rel="noopener">RIPE NCC 国际网络拓扑数据</a> 与实时链路时延遥测，自动将流量调度至负载最轻的跨境管道，让晚高峰依然拥有如深夜般的丝滑体验。
-      </p>
-
-      <div class="dispatch-tactical-callout">
-        <p>
-          战备选型参考：市面上宣称抗拥塞的服务众多，但质量良莠不齐。建议查阅由资深极客团队整理的 <a href="https://tizilab.net/" target="_blank">高速稳定梯子榜单精选</a>，对比各主流服务商在真实高峰期的测速曲线与丢包率数据，做出最明智的决策。
-        </p>
-      </div>
-
-      <h2>三、传输层调优：自研双向抗丢包重传协议</h2>
-      <p>
-        在长距离跨洋链路中，由于物理光速限制，数据包往返时间本身较长（例如中美往返通常在 130ms 至 180ms 之间）。如果采用标准的重传机制，单次丢包就会造成数百毫秒的停顿。
-      </p>
-
-      <h3>1. 前向纠错编码（FEC）的战术性嵌入</h3>
-      <p>
-        在对抗严重丢包的极端恶劣线路上，通过在传输流中按照特定比例（如 10:1）插入纠错冗余包，接收端即便偶发丢包也能通过数学矩阵运算即时还原原始载荷，无需等待远端重传，从而实现零抖动的无缝音视频通话。
-      </p>
-
-      <h3>2. 动态调节发送窗口与平滑起步</h3>
-      <p>
-        结合智能探针对链路队列状况的微秒级感知，提前规避网络缓冲区的溢出阈值，使发包速率始终贴紧物理信道承载能力的上限，最大化利用每一赫兹的带宽价值。
-      </p>
-
-      <h2>四、总结：用工程确定性击溃网络混沌</h2>
-      <p>
-        面对公网环境的复杂多变与运营商的流量限制，单纯依赖运气或单节点硬扛终究无法长久。唯有依靠工业级的专线中继基建、智能路由调度与先进传输协议的多维协同，才能在晚高峰的汹涌人潮中，为专业工作者开辟出一条稳若泰山的专属通道。
-      </p>
+<p>很多玩家只看一个延迟数字，实际上不同工具测量的内容并不一样。</p>
+<h2>ping：测到某个地址的往返时间</h2>
+<p>简单直接，能看到平均延迟、最大值和丢包率。但它使用的是 ICMP 协议，有些线路会对它区别对待，结果未必能代表真实游戏流量。</p>
+<h2>mtr：看到沿途每一跳</h2>
+<p>它把 ping 和路由追踪结合起来，可以看到延迟或丢包是在哪一跳开始出现的，用来判断问题出在你家、运营商还是更远的地方。</p>
+<h2>游戏内延迟显示</h2>
+<p>最接近真实体验，但不同游戏的计算方法不同，不适合在不同游戏之间直接比较。</p>
+<h2>推荐的测试方法</h2>
+<ul><li>先用 ping 对比开启与未开启加速的差异。</li><li>如果有丢包，用 mtr 查看具体位置。</li><li>最后以游戏内显示和实际手感确认。</li></ul>
+<p>多测几个时段，取平均和最差值，比单次的最低延迟更有参考价值。</p>
     </article>
 
     <div class="dispatch-exit-control">

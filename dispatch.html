@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>要塞通讯 · 硬核网络战备指南与技术档案 - 夜煞云</title>
-  <meta name="description" content="夜煞云要塞通讯专栏，聚焦万兆BGP中继压力测试、主流网络代理底层协议深度横评、软路由GeoIP分流排障及零信任纯内存防护档案。">
+  <title>要塞通讯：新手战备、规则分流与排障指南 - 夜煞云</title>
+  <meta name="description" content="夜煞云要塞通讯：新手战备清单、游戏与网页加速的区别、规则分流、延迟测量、AI 接口超时排查与账号安全指南。">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -50,10 +50,8 @@
   <main class="tactical-container">
     <header class="fortress-sub-header" style="text-align: center; border-bottom: none; padding-bottom: 20px;">
       <span class="t-tag-pill" style="margin-bottom: 12px; display:inline-block;">FORTRESS TACTICAL DISPATCH</span>
-      <h1 class="fortress-sub-h1" style="font-size: 2.7rem; margin-bottom: 16px;">要塞通讯 · 硬核网络战备指南与技术档案</h1>
-      <p class="f-desc" style="max-width: 780px; margin: 0 auto; font-size: 1.05rem;">
-        记录来自极限网络对抗第一线的硬核实测数据、跨洋加密协议底层代码拆解与全时段压力测试档案。
-      </p>
+      <h1 class="fortress-sub-h1" style="font-size: 2.7rem; margin-bottom: 16px;">要塞通讯 · 新手战备与排障指南</h1>
+      <p class="f-desc" style="max-width: 780px; margin: 0 auto; font-size: 1.05rem;">从开通后的第一步，到游戏延迟、规则分流和账号安全，把常见问题一次说清楚。</p>
     </header>
 
     <!-- 6 篇要塞档案卡片列表 -->
@@ -62,14 +60,14 @@
       <article class="dispatch-unit-card">
         <div>
           <div class="dispatch-chip-row">
-            <span class="dispatch-code-chip">[DOSSIER #01] · 架构总览</span>
-            <span class="dispatch-date-tag">2026-10-12</span>
+            <span class="dispatch-code-chip">[DOSSIER #01] · 新手战备</span>
+            <span class="dispatch-date-tag">2026-11-15</span>
           </div>
           <h2 class="dispatch-card-h3">
-            <a href="fortress-core-architecture.html">硬核破阵基建：夜煞云万兆BGP要塞节点吞吐与全时段压力测试实录</a>
+            <a href="fortress-core-architecture.html">夜煞云新手战备：开通后前十分钟该做的六件事</a>
           </h2>
           <p class="dispatch-summary-p">
-            万兆端口饱和吞吐量实测、并发连接数极限压测与端到端纯内存转发管道稳定性深度技术拆解。
+            十分钟六步走完基础部署，之后遇到的大多数问题都能自己定位。
           </p>
         </div>
         <div>
@@ -81,14 +79,14 @@
       <article class="dispatch-unit-card">
         <div>
           <div class="dispatch-chip-row">
-            <span class="dispatch-code-chip">[DOSSIER #02] · 协议解构</span>
-            <span class="dispatch-date-tag">2026-10-09</span>
+            <span class="dispatch-code-chip">[DOSSIER #02] · 协议解析</span>
+            <span class="dispatch-date-tag">2026-11-14</span>
           </div>
           <h2 class="dispatch-card-h3">
-            <a href="tactical-protocol-comparison.html">主流跨国代理协议深度横评：VLESS、Shadowsocks与Trojan底层性能与特征剖析</a>
+            <a href="tactical-protocol-comparison.html">游戏加速与网页加速有什么区别：UDP、TCP 与协议选择</a>
           </h2>
           <p class="dispatch-summary-p">
-            使用 Wireshark 抓包深度对比三大协议在 TLS 握手特征、计算开销与数据包头部膨胀率方面的差异。
+            游戏多使用 UDP，对丢包和抖动更敏感，选择协议时要考虑 UDP 是否被良好支持。
           </p>
         </div>
         <div>
@@ -100,14 +98,14 @@
       <article class="dispatch-unit-card">
         <div>
           <div class="dispatch-chip-row">
-            <span class="dispatch-code-chip">[DOSSIER #03] · 路由分流</span>
-            <span class="dispatch-date-tag">2026-10-07</span>
+            <span class="dispatch-code-chip">[DOSSIER #03] · 规则分流</span>
+            <span class="dispatch-date-tag">2026-11-13</span>
           </div>
           <h2 class="dispatch-card-h3">
-            <a href="routing-rules-optimization.html">软路由与客户端智能分流规则精粹：自建GeoIP与分流规则链实战排障</a>
+            <a href="routing-rules-optimization.html">规则分流实战：让游戏、下载与网页各走各的路</a>
           </h2>
           <p class="dispatch-summary-p">
-            告别规则冲突与 DNS 环路解析，详述基于开源客户端内核构建精准分流白名单的高级实战经验。
+            把不同用途的流量分到不同线路，既省流量，也避免互相挤占带宽。
           </p>
         </div>
         <div>
@@ -119,14 +117,14 @@
       <article class="dispatch-unit-card">
         <div>
           <div class="dispatch-chip-row">
-            <span class="dispatch-code-chip">[DOSSIER #04] · 抗QoS限速</span>
-            <span class="dispatch-date-tag">2026-10-04</span>
+            <span class="dispatch-code-chip">[DOSSIER #04] · 延迟测量</span>
+            <span class="dispatch-date-tag">2026-11-12</span>
           </div>
           <h2 class="dispatch-card-h3">
-            <a href="synthetic-latency-benchmark.html">国际网络出口QoS限速机制破解：如何利用BGP多线中继抵御晚高峰劣化</a>
+            <a href="synthetic-latency-benchmark.html">怎样科学测延迟：ping、mtr 与游戏内显示的区别</a>
           </h2>
           <p class="dispatch-summary-p">
-            深挖运营商汇聚层流量调度原理，实测自研抗拥塞多通道在晚高峰期保障数据流平稳到达的工程机制。
+            不同工具测的是不同的东西，组合使用才能看清问题出在哪一段。
           </p>
         </div>
         <div>
@@ -138,14 +136,14 @@
       <article class="dispatch-unit-card">
         <div>
           <div class="dispatch-chip-row">
-            <span class="dispatch-code-chip">[DOSSIER #05] · AI算力通道</span>
-            <span class="dispatch-date-tag">2026-10-01</span>
+            <span class="dispatch-code-chip">[DOSSIER #05] · 开发场景</span>
+            <span class="dispatch-date-tag">2026-11-11</span>
           </div>
           <h2 class="dispatch-card-h3">
-            <a href="ai-model-inference-gateway.html">Claude 3.5与ChatGPT高负载API调用防限流：反向代理与中继集群负载均衡</a>
+            <a href="ai-model-inference-gateway.html">调用 AI 接口总是超时？客户端、长连接与重试的设置思路</a>
           </h2>
           <p class="dispatch-summary-p">
-            面向企业级生产环境，构建支持健康检查、轮询调度与高并发长连接维护的跨国 AI 代理网关。
+            接口超时多数与超时时间、长连接保活和重试逻辑有关，而不仅仅是网络问题。
           </p>
         </div>
         <div>
@@ -157,14 +155,14 @@
       <article class="dispatch-unit-card">
         <div>
           <div class="dispatch-chip-row">
-            <span class="dispatch-code-chip">[DOSSIER #06] · 硬件级零信任</span>
-            <span class="dispatch-date-tag">2026-09-27</span>
+            <span class="dispatch-code-chip">[DOSSIER #06] · 账号安全</span>
+            <span class="dispatch-date-tag">2026-11-10</span>
           </div>
           <h2 class="dispatch-card-h3">
-            <a href="zero-trust-packet-defense.html">零信任架构下的跨境中继安全：为什么硬件RAM无盘部署是防溯源的终极防线</a>
+            <a href="zero-trust-packet-defense.html">账号安全防线：两步验证、独立邮箱与异常登录的处理</a>
           </h2>
           <p class="dispatch-summary-p">
-            对标 NIST 零信任框架，解析无持久化存储主板与微秒级内存擦除如何将系统暴露面压制至极限。
+            两步验证加独立邮箱加密码管理器，是账号安全最实用的三件套。
           </p>
         </div>
         <div>
