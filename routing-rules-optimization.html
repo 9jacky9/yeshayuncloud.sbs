@@ -1,96 +1,99 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>规则分流实战：让游戏、下载与网页各走各的路 - 要塞通讯</title>
-  <meta name="description" content="不同类型的流量应该走不同的线路。介绍如何为游戏、下载、办公和网页设置分流规则，避免互相抢占带宽与浪费流量。">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>分流规则明明写了却没生效：按匹配顺序、进程与实际连接核对</title>
+<meta content="分流规则明明写了却没生效：按匹配顺序、进程与实际连接核对，包含操作次序、结果判读与适用条件，帮助读者把实际任务和连接问题分开验证。" name="description"/>
+<link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-  <div class="tactical-mesh-ambient"></div>
-
-  <!-- 重装指挥甲板导航 -->
-  <header class="tactical-deck-nav">
-    <div class="tactical-container">
-      <div class="deck-nav-inner">
-        <a href="index.html" class="deck-logo-wrap" title="夜煞云官网">
-          <svg class="deck-logo-svg" viewBox="0 0 240 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="夜煞云 Logo">
-            <defs>
-              <linearGradient id="crystalGemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#fca5a5"/>
-                <stop offset="50%" stop-color="#ef4444"/>
-                <stop offset="100%" stop-color="#991b1b"/>
-              </linearGradient>
-            </defs>
-            <polygon points="26,8 38,8 46,16 46,38 38,46 26,46 18,38 18,16" fill="url(#crystalGemGrad)"/>
-            <polygon points="28,14 36,14 40,20 40,34 36,40 28,40 24,34 24,20" fill="#050608" opacity="0.65"/>
-            <line x1="26" y1="8" x2="36" y2="40" stroke="#ffffff" stroke-width="1.2" opacity="0.4"/>
-            <line x1="18" y1="26" x2="46" y2="26" stroke="#ffffff" stroke-width="1.2" opacity="0.4"/>
-            <text x="58" y="38" font-family="'Inter', 'PingFang SC', sans-serif" font-size="26" font-weight="900" fill="#ffffff" letter-spacing="2">夜煞云</text>
-            <rect x="156" y="20" width="66" height="18" rx="2" fill="rgba(239, 68, 68, 0.2)" stroke="#ef4444" stroke-width="1"/>
-            <text x="163" y="33" font-family="'Inter', sans-serif" font-size="10" font-weight="800" fill="#fca5a5" letter-spacing="1">FORTRESS</text>
-          </svg>
-        </a>
-        <ul class="tactical-nav-menu">
-          <li><a href="index.html#advantages" class="tactical-nav-link">重装优势</a></li>
-          <li><a href="index.html#stream-ai" class="tactical-nav-link">协议矩阵</a></li>
-          <li><a href="index.html#pricing" class="tactical-nav-link">战力配给</a></li>
-          <li><a href="index.html#testimonials" class="tactical-nav-link">前线战报</a></li>
-          <li><a href="index.html#faq" class="tactical-nav-link">装甲指南</a></li>
-          <li><a href="dispatch.html" class="tactical-nav-link" style="color:#fca5a5; font-weight:900;">要塞通讯</a></li>
-        </ul>
-        <div class="deck-nav-actions">
-          <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" target="_blank" rel="nofollow" class="c-btn c-btn-blood">立即配给</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="tactical-container dispatch-article-cockpit">
-    <header class="dispatch-head-panel">
-      <div class="dispatch-chip-row">
-        <span class="dispatch-code-chip">[DOSSIER #03] · 规则分流</span>
-        <span class="dispatch-date-tag">2026-11-13</span>
-      </div>
-      <h1 class="dispatch-main-h1">规则分流实战：让游戏、下载与网页各走各的路</h1>
-      <div class="dispatch-specs-meta">
-        <span class="dispatch-vanguard-tag"><span class="dispatch-avatar-hex">夜</span><span>夜煞云使用指南组</span></span>
-        <span>主题：规则分流</span>
-      </div>
-    </header>
-
-    <article class="dispatch-body-hull">
-<p>所有流量走同一条线路，是最常见的浪费。通过规则分流，可以让每一种用途各取所需。</p>
-<h2>一、先把用途分类</h2>
-<ul><li>游戏：需要低延迟和稳定的 UDP。</li><li>网页与办公：对稳定性要求高。</li><li>大文件下载：吃流量，可酌情直连。</li><li>国内应用：全部直连。</li></ul>
-<h2>二、分流的基本思路</h2>
-<p>先让国内域名与地址直连，再为游戏单独指定低延迟节点，最后让其余海外访问走通用节点。</p>
-<h2>三、规则的优先级</h2>
-<p>规则自上而下匹配，先命中先执行。把精确规则放前面，宽泛规则放后面，这样才不会出现“本应直连的走了代理”的情况。</p>
-<h2>四、定期检查与更新</h2>
-<p>规则集需要更新，否则新出现的网站可能走错路径。每周更新一次规则集，是一个好习惯。</p>
-<h2>小结</h2>
-<p>分流做得好，同样的线路能发挥更大价值。从最简单的国内直连开始，再逐步细化。</p>
-    </article>
-
-    <div class="dispatch-exit-control">
-      <a href="dispatch.html" class="dispatch-read-link">← 返回要塞通讯目录</a>
-      <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" target="_blank" rel="nofollow" class="c-btn c-btn-blood">立刻武装网络</a>
-    </div>
-  </main>
-
-  <!-- 底部页脚：仅展示指定的4个中文标题 -->
-  <footer class="tactical-bunker-footer">
-    <div class="tactical-container">
-      <ul class="bunker-foot-links">
-        <li><a href="sitemap.html" class="bunker-foot-link">网站地图</a></li>
-        <li><a href="about.html" class="bunker-foot-link">关于我们</a></li>
-        <li><a href="terms.html" class="bunker-foot-link">服务条款</a></li>
-        <li><a href="privacy.html" class="bunker-foot-link">隐私政策</a></li>
-      </ul>
-      <p class="bunker-foot-copy">© 2026 夜煞云 (Yeshayun Cloud). 保留所有权利。</p>
-    </div>
-  </footer>
+<div class="tactical-mesh-ambient"></div>
+<!-- 重装指挥甲板导航 -->
+<header class="tactical-deck-nav">
+<div class="tactical-container">
+<div class="deck-nav-inner">
+<a class="deck-logo-wrap" href="index.html" title="夜煞云官网">
+<svg aria-label="夜煞云 Logo" class="deck-logo-svg" fill="none" viewbox="0 0 240 56" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="crystalGemGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#fca5a5"></stop>
+<stop offset="50%" stop-color="#ef4444"></stop>
+<stop offset="100%" stop-color="#991b1b"></stop>
+</lineargradient>
+</defs>
+<polygon fill="url(#crystalGemGrad)" points="26,8 38,8 46,16 46,38 38,46 26,46 18,38 18,16"></polygon>
+<polygon fill="#050608" opacity="0.65" points="28,14 36,14 40,20 40,34 36,40 28,40 24,34 24,20"></polygon>
+<line opacity="0.4" stroke="#ffffff" stroke-width="1.2" x1="26" x2="36" y1="8" y2="40"></line>
+<line opacity="0.4" stroke="#ffffff" stroke-width="1.2" x1="18" x2="46" y1="26" y2="26"></line>
+<text fill="#ffffff" font-family="'Inter', 'PingFang SC', sans-serif" font-size="26" font-weight="900" letter-spacing="2" x="58" y="38">夜煞云</text>
+<rect fill="rgba(239, 68, 68, 0.2)" height="18" rx="2" stroke="#ef4444" stroke-width="1" width="66" x="156" y="20"></rect>
+<text fill="#fca5a5" font-family="'Inter', sans-serif" font-size="10" font-weight="800" letter-spacing="1" x="163" y="33">FORTRESS</text>
+</svg>
+</a>
+<ul class="tactical-nav-menu">
+<li><a class="tactical-nav-link" href="index.html#advantages">重装优势</a></li>
+<li><a class="tactical-nav-link" href="index.html#stream-ai">协议矩阵</a></li>
+<li><a class="tactical-nav-link" href="index.html#pricing">战力配给</a></li>
+<li><a class="tactical-nav-link" href="index.html#testimonials">前线战报</a></li>
+<li><a class="tactical-nav-link" href="index.html#faq">装甲指南</a></li>
+<li><a class="tactical-nav-link" href="dispatch.html" style="color:#fca5a5; font-weight:900;">要塞通讯</a></li>
+</ul>
+<div class="deck-nav-actions">
+<a class="c-btn c-btn-blood" href="https://ww012.twilightaff.com/#/?code=A56DH1Af" rel="nofollow" target="_blank">立即配给</a>
+</div>
+</div>
+</div>
+</header>
+<main class="tactical-container dispatch-article-cockpit">
+<header class="dispatch-head-panel">
+<div class="dispatch-chip-row">
+<span class="dispatch-code-chip">[DOSSIER #03] · 规则分流</span>
+<span class="dispatch-date-tag">2026-11-13</span>
+</div>
+<h1 class="dispatch-main-h1">分流规则明明写了却没生效：按匹配顺序、进程与实际连接核对</h1>
+<div class="dispatch-specs-meta">
+<span class="dispatch-vanguard-tag"><span class="dispatch-avatar-hex">夜</span><span>夜煞云使用指南组</span></span>
+<span>主题：规则分流</span>
+</div>
+</header>
+<article class="dispatch-body-hull"><div data-swc-article-body="2026-11-16"><h2>规则文本与实际出站之间还有几步</h2>
+<p>在配置里写入某个域名，并不代表应用请求一定按预期走。规则可能被前面的条目覆盖，应用可能连接另一个域名，客户端也可能没有加载修改后的配置。排查分流时，应把有效配置、实际请求、命中规则与最终出站串起来。先用一个公开的只读页面测试，不拿正在付款或保存资料的任务反复切换路径。</p>
+<h2>第一轮只确认当前模式与配置</h2>
+<p>记录客户端名称、核心版本、运行模式及当前启用的配置文件。在支持规则模式的客户端中，确认没有处于其他全局或直接模式；具体名称以当前产品为准。编辑的文件和当前生效的配置可能不同，尤其是界面维护多个订阅时。先找清实际加载来源，再修改一处，避免在不会被读取的副本里反复调整。</p>
+<h2>第二轮读取一条真实连接</h2>
+<p>打开客户端提供的连接或日志视图，清楚记下开始时间，再访问测试页面。寻找对应域名、进程和使用的出站，必要时只刷新一次。网页可能同时请求图片、字体、登录和接口等不同主机，因此要找到失败的具体请求，不能只按地址栏里的主域名猜测所有流量的规则。</p>
+<p>如果页面显示正常但附件失败，先在浏览器网络面板定位附件请求的域名，再回到客户端观察该连接。这样可以判断缺的是一个明确范围，还是整个应用都未进入预期路径。日志没有显示目标时，也可能是应用走了另一种连接方式，应先确认接管范围，不急于添加更多规则。</p>
+<h2>第三轮核对规则顺序</h2>
+<p>以mihomo规则配置为例，常规匹配按排列顺序进行，前面的匹配可能决定结果。把具体业务规则放在适合的位置，并理解最终兜底规则的作用。若上方宽泛规则已命中，下方精确条目就可能没有机会生效。检查时从实际命中项向前看，不只搜索自己刚添加的那一行。</p>
+<p>例如你想对单个测试域名使用指定策略组，应先确认没有更早的域名后缀、地址范围或进程规则把它送到其他出口。不要为让一个域名生效而删除整份规则集。记录变更前后命中的规则名称，能够明确证明调整解决的是匹配问题，而不是恰好换到更快的节点。</p>
+<h2>第四轮区分域名与进程匹配</h2>
+<p>域名规则围绕请求目标，进程规则围绕发起连接的程序；它们不能互相替代。游戏启动器和游戏本体可能是不同进程，桌面应用也可能启动辅助程序。平台和权限会影响进程识别能力，应按当前核心文档核对。没有进程信息时，不能凭窗口标题写一个名字就假定规则可以识别。</p>
+<p>修改进程规则前，使用系统任务信息与客户端日志核对真实可识别名称。不要把所有名称相似的程序一并纳入，尤其是共享系统组件。一次只验证一个目标应用，确认其他日常页面仍按预期访问。这样可以避免为了游戏而无意改变浏览器、更新服务或局域网设备的连接。</p>
+<h2>第五轮检查策略组自身的成员</h2>
+<p>规则命中正确的策略组，不代表组里已经选择了可用出站。查看当前成员和选择结果，确认目标节点存在、配置可加载且符合任务需要。订阅更新后名称变化可能使引用失效，应按产品支持方式处理。不要把空组、失效成员或不兼容协议造成的失败误诊为规则顺序问题。</p>
+<p>需要筛选连接服务时，可以参考<a href="https://dajichang.mom/">规则分流机场服务比较</a>整理订阅格式、设备和使用场景。服务提供连接端点，客户端负责执行规则，这两者应分别核对。节点多不等于分流准确，套餐支持某个核心也不自动保证你手工混入的旧规则兼容当前版本。</p>
+<h2>更新订阅前保留自己的修改边界</h2>
+<p>优先使用客户端正式提供的覆盖、合并或本地规则机制，避免直接修改会被订阅更新替换的内容。具体入口与合并次序应查看对应软件文档。保存自己新增规则的目的和测试对象，不复制整份陌生配置覆盖。更新后重新观察真实命中结果，不能只看编辑器中旧文字还在就认定已经生效。</p>
+<h2>用三项验收结束调试</h2>
+<p>最后验证目标应用、普通网页和一个局域网任务，确认没有互相影响。退出测试连接后重新打开目标，观察新连接仍命中预期规则；已有连接可能不会立即随配置变化迁移，因此测试时应明确区分新旧会话。把有效规则、版本和观察结果一起保存，下次异常就能从已知状态继续，而不是重新猜测。</p><h2>明确配置变更的生效方式</h2><p>按当前客户端要求重新加载配置，观察是否出现语法或引用错误；不要只点击保存就认定加载成功。保留原有效配置，若新配置无法解析，先恢复正常使用再定位具体条目，避免在连接已经失效时继续叠加多项修改。</p></div></article>
+<div class="dispatch-exit-control">
+<a class="dispatch-read-link" href="dispatch.html">← 返回要塞通讯目录</a>
+<a class="c-btn c-btn-blood" href="https://ww012.twilightaff.com/#/?code=A56DH1Af" rel="nofollow" target="_blank">立刻武装网络</a>
+</div>
+</main>
+<!-- 底部页脚：仅展示指定的4个中文标题 -->
+<footer class="tactical-bunker-footer">
+<div class="tactical-container">
+<ul class="bunker-foot-links">
+<li><a class="bunker-foot-link" href="sitemap.html">网站地图</a></li>
+<li><a class="bunker-foot-link" href="about.html">关于我们</a></li>
+<li><a class="bunker-foot-link" href="terms.html">服务条款</a></li>
+<li><a class="bunker-foot-link" href="privacy.html">隐私政策</a></li>
+</ul>
+<p class="bunker-foot-copy">© 2026 夜煞云 (Yeshayun Cloud). 保留所有权利。</p>
+</div>
+</footer>
 </body>
 </html>

@@ -1,96 +1,102 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>游戏加速与网页加速有什么区别：UDP、TCP 与协议选择 - 要塞通讯</title>
-  <meta name="description" content="为什么网页用得好好的，游戏却依然延迟高？说明游戏流量的特点、UDP 与 TCP 的差异，以及选择协议和节点的思路。">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>游戏连接选TCP还是UDP：先分清应用需求、转发支持与恢复方式</title>
+<meta content="游戏连接选TCP还是UDP：先分清应用需求、转发支持与恢复方式，包含操作次序、结果判读与适用条件，帮助读者把实际任务和连接问题分开验证。" name="description"/>
+<link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-  <div class="tactical-mesh-ambient"></div>
-
-  <!-- 重装指挥甲板导航 -->
-  <header class="tactical-deck-nav">
-    <div class="tactical-container">
-      <div class="deck-nav-inner">
-        <a href="index.html" class="deck-logo-wrap" title="夜煞云官网">
-          <svg class="deck-logo-svg" viewBox="0 0 240 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="夜煞云 Logo">
-            <defs>
-              <linearGradient id="crystalGemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#fca5a5"/>
-                <stop offset="50%" stop-color="#ef4444"/>
-                <stop offset="100%" stop-color="#991b1b"/>
-              </linearGradient>
-            </defs>
-            <polygon points="26,8 38,8 46,16 46,38 38,46 26,46 18,38 18,16" fill="url(#crystalGemGrad)"/>
-            <polygon points="28,14 36,14 40,20 40,34 36,40 28,40 24,34 24,20" fill="#050608" opacity="0.65"/>
-            <line x1="26" y1="8" x2="36" y2="40" stroke="#ffffff" stroke-width="1.2" opacity="0.4"/>
-            <line x1="18" y1="26" x2="46" y2="26" stroke="#ffffff" stroke-width="1.2" opacity="0.4"/>
-            <text x="58" y="38" font-family="'Inter', 'PingFang SC', sans-serif" font-size="26" font-weight="900" fill="#ffffff" letter-spacing="2">夜煞云</text>
-            <rect x="156" y="20" width="66" height="18" rx="2" fill="rgba(239, 68, 68, 0.2)" stroke="#ef4444" stroke-width="1"/>
-            <text x="163" y="33" font-family="'Inter', sans-serif" font-size="10" font-weight="800" fill="#fca5a5" letter-spacing="1">FORTRESS</text>
-          </svg>
-        </a>
-        <ul class="tactical-nav-menu">
-          <li><a href="index.html#advantages" class="tactical-nav-link">重装优势</a></li>
-          <li><a href="index.html#stream-ai" class="tactical-nav-link">协议矩阵</a></li>
-          <li><a href="index.html#pricing" class="tactical-nav-link">战力配给</a></li>
-          <li><a href="index.html#testimonials" class="tactical-nav-link">前线战报</a></li>
-          <li><a href="index.html#faq" class="tactical-nav-link">装甲指南</a></li>
-          <li><a href="dispatch.html" class="tactical-nav-link" style="color:#fca5a5; font-weight:900;">要塞通讯</a></li>
-        </ul>
-        <div class="deck-nav-actions">
-          <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" target="_blank" rel="nofollow" class="c-btn c-btn-blood">立即配给</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="tactical-container dispatch-article-cockpit">
-    <header class="dispatch-head-panel">
-      <div class="dispatch-chip-row">
-        <span class="dispatch-code-chip">[DOSSIER #02] · 协议解析</span>
-        <span class="dispatch-date-tag">2026-11-14</span>
-      </div>
-      <h1 class="dispatch-main-h1">游戏加速与网页加速有什么区别：UDP、TCP 与协议选择</h1>
-      <div class="dispatch-specs-meta">
-        <span class="dispatch-vanguard-tag"><span class="dispatch-avatar-hex">夜</span><span>夜煞云使用指南组</span></span>
-        <span>主题：协议解析</span>
-      </div>
-    </header>
-
-    <article class="dispatch-body-hull">
-<p>同一个节点，浏览网页很流畅，打游戏却不稳，这并不矛盾，因为两种流量的特点不同。</p>
-<h2>网页流量：多为 TCP，可以重传</h2>
-<p>网页和下载主要使用 TCP，丢了包会自动重发，短暂的波动用户不容易察觉。</p>
-<h2>游戏流量：常用 UDP，实时性要求高</h2>
-<p>很多游戏使用 UDP 传输实时数据，丢了就丢了，不会补发，所以丢包与抖动会直接表现为卡顿和瞬移。</p>
-<h2>对协议和客户端的要求</h2>
-<p>需要代理能转发 UDP，并且客户端中开启了 UDP 转发选项。否则游戏流量可能直连或无法通过。</p>
-<h2>节点选择的注意点</h2>
-<ul><li>选择离游戏服务器近的出口。</li><li>优先看稳定性，而不是最低延迟。</li><li>避开晚高峰负载最高的节点。</li></ul>
-<h2>小结</h2>
-<p>游戏和网页的需求不同，设置也要分别对待。确认 UDP 转发正常，再选择延迟稳定的节点，效果最明显。</p>
-    </article>
-
-    <div class="dispatch-exit-control">
-      <a href="dispatch.html" class="dispatch-read-link">← 返回要塞通讯目录</a>
-      <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" target="_blank" rel="nofollow" class="c-btn c-btn-blood">立刻武装网络</a>
-    </div>
-  </main>
-
-  <!-- 底部页脚：仅展示指定的4个中文标题 -->
-  <footer class="tactical-bunker-footer">
-    <div class="tactical-container">
-      <ul class="bunker-foot-links">
-        <li><a href="sitemap.html" class="bunker-foot-link">网站地图</a></li>
-        <li><a href="about.html" class="bunker-foot-link">关于我们</a></li>
-        <li><a href="terms.html" class="bunker-foot-link">服务条款</a></li>
-        <li><a href="privacy.html" class="bunker-foot-link">隐私政策</a></li>
-      </ul>
-      <p class="bunker-foot-copy">© 2026 夜煞云 (Yeshayun Cloud). 保留所有权利。</p>
-    </div>
-  </footer>
+<div class="tactical-mesh-ambient"></div>
+<!-- 重装指挥甲板导航 -->
+<header class="tactical-deck-nav">
+<div class="tactical-container">
+<div class="deck-nav-inner">
+<a class="deck-logo-wrap" href="index.html" title="夜煞云官网">
+<svg aria-label="夜煞云 Logo" class="deck-logo-svg" fill="none" viewbox="0 0 240 56" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="crystalGemGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#fca5a5"></stop>
+<stop offset="50%" stop-color="#ef4444"></stop>
+<stop offset="100%" stop-color="#991b1b"></stop>
+</lineargradient>
+</defs>
+<polygon fill="url(#crystalGemGrad)" points="26,8 38,8 46,16 46,38 38,46 26,46 18,38 18,16"></polygon>
+<polygon fill="#050608" opacity="0.65" points="28,14 36,14 40,20 40,34 36,40 28,40 24,34 24,20"></polygon>
+<line opacity="0.4" stroke="#ffffff" stroke-width="1.2" x1="26" x2="36" y1="8" y2="40"></line>
+<line opacity="0.4" stroke="#ffffff" stroke-width="1.2" x1="18" x2="46" y1="26" y2="26"></line>
+<text fill="#ffffff" font-family="'Inter', 'PingFang SC', sans-serif" font-size="26" font-weight="900" letter-spacing="2" x="58" y="38">夜煞云</text>
+<rect fill="rgba(239, 68, 68, 0.2)" height="18" rx="2" stroke="#ef4444" stroke-width="1" width="66" x="156" y="20"></rect>
+<text fill="#fca5a5" font-family="'Inter', sans-serif" font-size="10" font-weight="800" letter-spacing="1" x="163" y="33">FORTRESS</text>
+</svg>
+</a>
+<ul class="tactical-nav-menu">
+<li><a class="tactical-nav-link" href="index.html#advantages">重装优势</a></li>
+<li><a class="tactical-nav-link" href="index.html#stream-ai">协议矩阵</a></li>
+<li><a class="tactical-nav-link" href="index.html#pricing">战力配给</a></li>
+<li><a class="tactical-nav-link" href="index.html#testimonials">前线战报</a></li>
+<li><a class="tactical-nav-link" href="index.html#faq">装甲指南</a></li>
+<li><a class="tactical-nav-link" href="dispatch.html" style="color:#fca5a5; font-weight:900;">要塞通讯</a></li>
+</ul>
+<div class="deck-nav-actions">
+<a class="c-btn c-btn-blood" href="https://ww012.twilightaff.com/#/?code=A56DH1Af" rel="nofollow" target="_blank">立即配给</a>
+</div>
+</div>
+</div>
+</header>
+<main class="tactical-container dispatch-article-cockpit">
+<header class="dispatch-head-panel">
+<div class="dispatch-chip-row">
+<span class="dispatch-code-chip">[DOSSIER #02] · 协议解析</span>
+<span class="dispatch-date-tag">2026-11-14</span>
+</div>
+<h1 class="dispatch-main-h1">游戏连接选TCP还是UDP：先分清应用需求、转发支持与恢复方式</h1>
+<div class="dispatch-specs-meta">
+<span class="dispatch-vanguard-tag"><span class="dispatch-avatar-hex">夜</span><span>夜煞云使用指南组</span></span>
+<span>主题：协议解析</span>
+</div>
+</header>
+<article class="dispatch-body-hull"><div data-swc-article-body="2026-11-16"><h2>协议名称不是快慢排行榜</h2>
+<p>网页可以正常打开，游戏却无法进入对局，并不必然说明整条线路都很差。应用使用的传输方式、客户端接管范围和服务支持能力可能不同。比较TCP与UDP时，先理解它们提供什么，再确认游戏实际需要什么。不能把一个写着UDP的开关视为低延迟保证，也不能笼统地说TCP只适合网页、UDP一定丢了就不管。</p>
+<h2>TCP提供有序可靠的字节流</h2>
+<p>TCP负责将数据以有序字节流交付给应用，遇到丢失会采取相应恢复机制。这适合需要完整数据的任务，但恢复与拥塞条件可能影响等待。应用仍需要处理连接中断与业务错误，协议可靠并不等于整个操作一定成功。网页也可能使用其他传输，因此判断某次连接应看实际实现，不能仅根据应用类别猜。</p>
+<h2>UDP给应用留下更多责任</h2>
+<p>UDP本身不提供与TCP相同的有序可靠交付和拥塞控制，但应用可以在上层设计确认、恢复与速率控制。实时任务可能更重视新状态及时到达，而不是等待旧状态全部补齐。RFC8085也要求应用认真处理拥塞等问题，所以“使用UDP”不意味着可以不受限制地发送，更不是一定比其他方案快的证明。</p>
+<h2>第一步确认游戏和平台的正式要求</h2>
+<p>从游戏支持说明核对服务器区域、网络要求以及是否允许当前连接方式。不要仅用论坛中另一款游戏的设置。启动器下载、账户登录、语音与对局可能采用不同路径，应分别验证。若平台明确不支持某种接入，按其规则处理，而不是通过不断改变配置尝试隐藏使用方式。</p>
+<h2>第二步核对客户端实际接管范围</h2>
+<p>系统代理通常只影响采用相应设置的应用；其他接管方式可能覆盖更广，但仍有规则和平台条件。查看客户端连接记录，确认游戏进程或目标是否出现，以及采用了哪个出站。网页测试成功只能说明网页那次访问可用，不能替游戏证明UDP转发或整个设备流量已被接管。</p>
+<p>记录软件与核心版本、运行模式、服务提供的协议和目标任务。某个界面允许启用功能，不代表远端节点已经支持全部条件。需要核对服务端、客户端和中间路径的一致性，不把两份不同时期的教程参数拼在一起。没有明确支持说明时，先询问服务方，不为一个未确认功能直接长期预付。</p>
+<h2>第三步在训练场景做对照</h2>
+<p>保持同一游戏、同一区域和同一设备，在平台允许的训练或私人场景观察加入速度、延迟波动、语音和中断。每轮只改变一个连接方案。不同服务器的负载与距离可能不同，不能一边换协议一边换区服后宣布协议更好。保留失败轮次，它们反映真实兼容范围，而不是应该删掉的坏成绩。</p>
+<h2>第四步区分丢包、抖动和帧率</h2>
+<p>游戏内延迟通常描述某种网络往返，丢包与抖动反映其他连接特征，而帧率属于本机渲染表现。人物回弹、音频断续和画面掉帧需要分别描述。若低画质后帧率改善但延迟不变，就说明至少有一部分是设备问题；换网络不能替代图形设置、散热或后台任务的处理。</p>
+<h2>第五步关注断线后的恢复</h2>
+<p>移动网络切换、设备休眠或入口变动可能影响会话。提前在非正式场景测试正常断开与重新加入，确认游戏是否需要重登、语音是否自动恢复。不要在正式比赛中测试新的协议或连接方式。恢复步骤应简单明确，参与者知道先保存什么状态、何时等待、何时按官方流程重新进入。</p>
+<h2>额外封装不一定减少等待</h2>
+<p>代理或隧道可能改善某段路径，也会引入额外处理与封装。结果取决于原路径、服务实现和当时负载，不能由协议名字单独推导。对照<a href="https://dajichang.mom/">游戏协议机场比较</a>时，重点核对转发支持、设备兼容和实际任务条件，再用自己的训练结果筛选，而不是按宣传中的最快协议排序。</p>
+<h2>不要把路由器开放设置当成通用修复</h2>
+<p>游戏无法连接时，不应立即关闭全部防火墙、开放全部端口或将设备暴露到公网。先按游戏与路由器官方说明确认实际需要，必要时由网络负责人处理。代理协议支持与家庭地址转换是不同问题，开启一个UDP选项也不能自动修复所有NAT或平台服务故障，应分层核对。</p>
+<h2>形成适合自己任务的选择记录</h2>
+<p>最终记录每种方案的支持前提、成功任务、异常现象和恢复步骤。若某方案适合下载而不适合对局，可以按客户端允许方式分别安排；无需追求一个配置覆盖所有场景。协议选择的好结果，是你知道它在哪里有效、在哪里需要其他条件，并能在变化后重新验证，而不是背下一个永久正确的速度排名。</p><p>保存测试日期，客户端升级或服务器区域调整后，再复查受影响的任务即可。</p></div></article>
+<div class="dispatch-exit-control">
+<a class="dispatch-read-link" href="dispatch.html">← 返回要塞通讯目录</a>
+<a class="c-btn c-btn-blood" href="https://ww012.twilightaff.com/#/?code=A56DH1Af" rel="nofollow" target="_blank">立刻武装网络</a>
+</div>
+</main>
+<!-- 底部页脚：仅展示指定的4个中文标题 -->
+<footer class="tactical-bunker-footer">
+<div class="tactical-container">
+<ul class="bunker-foot-links">
+<li><a class="bunker-foot-link" href="sitemap.html">网站地图</a></li>
+<li><a class="bunker-foot-link" href="about.html">关于我们</a></li>
+<li><a class="bunker-foot-link" href="terms.html">服务条款</a></li>
+<li><a class="bunker-foot-link" href="privacy.html">隐私政策</a></li>
+</ul>
+<p class="bunker-foot-copy">© 2026 夜煞云 (Yeshayun Cloud). 保留所有权利。</p>
+</div>
+</footer>
 </body>
 </html>
